@@ -20,8 +20,8 @@ const save = async (req, res) => {
     }
 } ;
 
-const roleClient = async () => {
-    return Role.findOne({intitule: 'Client'}).then((result) => { return result ; }) ;
+const roleAdministrateur = async () => {
+    return Role.findOne({intitule: 'Administrateur'}).then((result) => { return result ; }) ;
 } ;
 
 /****************
@@ -37,5 +37,5 @@ function sendResult(res, result) {
 module.exports = {
     findAll ,
     save ,
-    roleClient
+    roleAdministrateur
 }

@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', require('./routes/users'));
 
 app.get('/', (req, res) => {
-  res.send('Bienvenue dans notre petit coin de web service!');
+  res.send('Bienvenue dans notre petit coin de web service 📦🗳️!');
 });
 
 // Gestionnaire pour ignorer la requête /favicon.ico
