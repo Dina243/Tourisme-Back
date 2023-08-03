@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 var app = express();
+const port = 3000;
 
 require('./database/connexion') ;
 
@@ -22,6 +23,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 *    LOGIN / INSCRIPTION / LOGOUT DO NOT NEED TOKEN VERIFICATION    *
 ********************************************************************/
 app.use('/users', require('./routes/users'));
+
+app.get('/', (req, res) => {
+  res.send('Bienvenue dans notre petit coin de web service!');
+});
+
+// Gestionnaire pour ignorer la requête /favicon.ico
+app.get('/favicon.ico', (req, res) => {
+  res.status(204).end();
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
 /***********************
 *    CONTROLE TOKEN    *
