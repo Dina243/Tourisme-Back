@@ -1,5 +1,5 @@
 const express = require('express');
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 const router = express.Router();
 const serviceAccount = require('D:/Dina/Cours_Master1_P10/ProjetFinal_Android_MrRojo_M1_P10/projet/clé_API/mada-tourisme7-firebase-adminsdk-mx1vz-d69a153297.json');
 // Pour le déploiement le chemin d'accès spécifié ne fonctionnera pas donc
