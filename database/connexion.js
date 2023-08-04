@@ -1,4 +1,6 @@
 const mongoose = require('mongoose') ;
+const express = require('express');
+const bodyParser = require('body-parser');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
 
@@ -54,6 +56,51 @@ mongoose.connect(ATLAS_URI, {
         // Insert images and videos into MongoDB
         // insertDataIntoMongoDB();
     }).catch((err) => console.log(err)) ;
+
+// Stocker la fonctionnalité de commentaires dans MongoDB - ajout le 04/08/2023 14:06
+const CommentaireSchema = new mongoose.Schema({
+  author: String,
+  content: String,
+  created_at: { type: Date, default: Date.now },
+});
+
+const Commentaire = mongoose.model('Commentaire', CommentaireSchema);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// afficher tous les commentaires
+app.get('/commentaires', (req, res) => {
+  Commentaire.find({}, (err, commentaires) => {
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des commentaires' });
+    } else {
+      res.json(commentaires);
+    }
+  });
+});
+
+// ajouter un commentaire
+app.post('/commentaires', (req, res) => {
+  const { author, content } = req.body;
+
+  if (!author || !content) {
+    res.status(400).json({ error: 'L\'auteur et le contenu du commentaire sont requis' });
+  } else {
+    const nouveauCommentaire = new Commentaire({
+      author,
+      content,
+    });
+
+    nouveauCommentaire.save((err, savedComment) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de l\'enregistrement du commentaire' });
+      } else {
+        res.json(savedComment);
+      }
+    });
+  }
+});
 
 // Connexion à la base de données MongoDB et insertion du document contenant image et vidéo encodées en base64
 // async function insertDataIntoMongoDB() {
