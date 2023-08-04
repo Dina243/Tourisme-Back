@@ -7,6 +7,9 @@ const cors = require('cors');
 var app = express();
 const port = 3000;
 
+// Import de la route pour les notifications
+const notificationsRoute = require('./routes/notifications');
+
 require('./database/connexion') ;
 
 /*******************
@@ -51,6 +54,9 @@ app.listen(port, () => {
 // app.use('/fiches', require('./routes/fiche')) ;
 // app.use('/parametres', require('./routes/parametre'));
 // app.use('/notifications', require('./routes/notification')) ;
+
+// Utiliser la route pour les notifications
+app.use('/notifications', notificationsRoute);
 
 app.use(function(req, res, next) {
   next(createError(404));
