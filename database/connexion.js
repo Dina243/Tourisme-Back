@@ -1,6 +1,6 @@
 const mongoose = require('mongoose') ;
-const express = require('express');
-const bodyParser = require('body-parser');
+// const express = require('express');
+// const bodyParser = require('body-parser');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
 
@@ -57,6 +57,7 @@ mongoose.connect(ATLAS_URI, {
         // insertDataIntoMongoDB();
     }).catch((err) => console.log(err)) ;
 
+    /*
 // Stocker la fonctionnalité de commentaires dans MongoDB - ajout le 04/08/2023 14:06
 const CommentaireSchema = new mongoose.Schema({
   author: String,
@@ -101,6 +102,7 @@ app.post('/commentaires', (req, res) => {
     });
   }
 });
+*/
 
 // Connexion à la base de données MongoDB et insertion du document contenant image et vidéo encodées en base64
 // async function insertDataIntoMongoDB() {

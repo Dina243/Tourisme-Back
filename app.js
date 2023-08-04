@@ -1,5 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
+const mongoose = require('mongoose') ;
+const bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -68,6 +70,50 @@ app.use(function(err, req, res, next) {
 
   res.status(err.status || 500);
   res.render('error');
+});
+
+const CommentSchema = new mongoose.Schema({
+  author: String,
+  content: String,
+  created_at: { type: Date, default: Date.now },
+});
+
+const Comment = mongoose.model('Comment', CommentSchema);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Endpoint pour afficher tous les commentaires
+app.get('/commentaires', (req, res) => {
+  Comment.find({}, (err, comments) => {
+    if (err) {
+      res.status(500).json({ error: 'Erreur lors de la récupération des commentaires' });
+    } else {
+      res.json(comments);
+    }
+  });
+});
+
+// Endpoint pour ajouter un commentaire
+app.post('/commentaires', (req, res) => {
+  const { author, content } = req.body;
+
+  if (!author || !content) {
+    res.status(400).json({ error: 'L\'auteur et le contenu du commentaire sont requis' });
+  } else {
+    const newComment = new Comment({
+      author,
+      content,
+    });
+
+    newComment.save((err, savedComment) => {
+      if (err) {
+        res.status(500).json({ error: 'Erreur lors de l\'enregistrement du commentaire' });
+      } else {
+        res.json(savedComment);
+      }
+    });
+  }
 });
 
 module.exports = app;
