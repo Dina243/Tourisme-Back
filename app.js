@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 const mongoose = require('mongoose') ;
@@ -18,6 +19,7 @@ const admin = require('firebase-admin');
         // Définir une variable d'environnement permanente dans cmd :
                 // setx FIREBASE_SERVICE_ACCOUNT_KEY_PATH "D:\Dina\Cours_Master1_P10\ProjetFinal_Android_MrRojo_M1_P10\projet\clé_API\mada-tourisme7-firebase-adminsdk-mx1vz-d69a153297.json"
 const serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT_KEY_PATH);
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
