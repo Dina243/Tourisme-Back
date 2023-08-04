@@ -14,23 +14,23 @@ admin.initializeApp({
 });
 
 // envoi de notification => Android
-// const registrationToken = 'DEVICE_REGISTRATION_TOKEN'; // celui-ci est le token de l'appareil Android
-// const message = {
-//   data: {
-//     title: 'Titre de la notification',
-//     body: 'Contenu de la notification',
-//   },
-//   token: registrationToken,
-// };
+const registrationToken = 'DEVICE_REGISTRATION_TOKEN'; // celui-ci est le token de l'appareil Android
+const message = {
+  data: {
+    title: 'Titre de la notification',
+    body: 'Contenu de la notification',
+  },
+  token: registrationToken,
+};
 
-// admin.messaging().send(message)
-//   .then((response) => {
-//     console.log('Notification envoyée avec succès :', response);
-//   })
-//   .catch((error) => {
-//     console.error('Erreur lors de l\'envoi de la notification :', error);
-//   });
-
+admin.messaging().send(message)
+  .then((response) => {
+    console.log('Notification envoyée avec succès :', response);
+  })
+  .catch((error) => {
+    console.error('Erreur lors de l\'envoi de la notification :', error);
+  });
+/*
 // Définir la route pour envoyer la notification => Android
 router.post('/', (req, res) => {
   const registrationToken = req.body.registrationToken;
@@ -52,6 +52,7 @@ router.post('/', (req, res) => {
       res.status(500).json({ success: false, error });
     });
 });
+*/
 
 module.exports = router;
 
